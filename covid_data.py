@@ -38,20 +38,42 @@ rad = st.radio("Data", ["New_cases", "Cumulative_cases", "New_deaths", "Cumulati
 
 rawData = yrData[["Date_reported", rad]]
 rawData["Date_reported"] = rawData["Date_reported"].dt.month
-
 index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-c1 = rawData.loc[(rawData["Date_reported"] == 1), rad].sum()
-c2 = rawData.loc[(rawData["Date_reported"] == 2), rad].sum()
-c3 = rawData.loc[(rawData["Date_reported"] == 3), rad].sum()
-c4 = rawData.loc[(rawData["Date_reported"] == 4), rad].sum()
-c5 = rawData.loc[(rawData["Date_reported"] == 5), rad].sum()
-c6 = rawData.loc[(rawData["Date_reported"] == 6), rad].sum()
-c7 = rawData.loc[(rawData["Date_reported"] == 7), rad].sum()
-c8 = rawData.loc[(rawData["Date_reported"] == 8), rad].sum()
-c9 = rawData.loc[(rawData["Date_reported"] == 9), rad].sum()
-c10 = rawData.loc[(rawData["Date_reported"] == 10), rad].sum()
-c11 = rawData.loc[(rawData["Date_reported"] == 11), rad].sum()
-c12 = rawData.loc[(rawData["Date_reported"] == 12), rad].sum()
+
+if rad == "New_cases" or rad == "New_deaths":
+    c1 = rawData.loc[(rawData["Date_reported"] == 1), rad].sum()
+    c2 = rawData.loc[(rawData["Date_reported"] == 2), rad].sum()
+    c3 = rawData.loc[(rawData["Date_reported"] == 3), rad].sum()
+    c4 = rawData.loc[(rawData["Date_reported"] == 4), rad].sum()
+    c5 = rawData.loc[(rawData["Date_reported"] == 5), rad].sum()
+    c6 = rawData.loc[(rawData["Date_reported"] == 6), rad].sum()
+    c7 = rawData.loc[(rawData["Date_reported"] == 7), rad].sum()
+    c8 = rawData.loc[(rawData["Date_reported"] == 8), rad].sum()
+    c9 = rawData.loc[(rawData["Date_reported"] == 9), rad].sum()
+    c10 = rawData.loc[(rawData["Date_reported"] == 10), rad].sum()
+    c11 = rawData.loc[(rawData["Date_reported"] == 11), rad].sum()
+    c12 = rawData.loc[(rawData["Date_reported"] == 12), rad].sum()
+else:
+    if year == 2020:
+        c1 = rawData.loc[(rawData["Date_reported"] == 1), rad].iloc[-1]
+        c2 = rawData.loc[(rawData["Date_reported"] == 2), rad].iloc[-1]
+        c3 = rawData.loc[(rawData["Date_reported"] == 3), rad].iloc[-1]
+        c4 = rawData.loc[(rawData["Date_reported"] == 4), rad].iloc[-1]
+        c5 = rawData.loc[(rawData["Date_reported"] == 5), rad].iloc[-1]
+        c6 = rawData.loc[(rawData["Date_reported"] == 6), rad].iloc[-1]
+        c7 = rawData.loc[(rawData["Date_reported"] == 7), rad].iloc[-1]
+        c8 = rawData.loc[(rawData["Date_reported"] == 8), rad].iloc[-1]
+        c9 = rawData.loc[(rawData["Date_reported"] == 9), rad].iloc[-1]
+        c10 = rawData.loc[(rawData["Date_reported"] == 10), rad].iloc[-1]
+        c11 = rawData.loc[(rawData["Date_reported"] == 11), rad].iloc[-1]
+        c12 = rawData.loc[(rawData["Date_reported"] == 12), rad].iloc[-1]
+    else:
+        c1 = rawData.loc[(rawData["Date_reported"] == 1), rad].iloc[-1]
+        c2 = rawData.loc[(rawData["Date_reported"] == 2), rad].iloc[-1]
+        c3 = rawData.loc[(rawData["Date_reported"] == 3), rad].iloc[-1]
+        c4 = rawData.loc[(rawData["Date_reported"] == 4), rad].iloc[-1]
+        c5 = rawData.loc[(rawData["Date_reported"] == 5), rad].iloc[-1]
+        c6, c7, c8, c9, c10, c11, c12 = 0, 0, 0, 0, 0, 0, 0
 
 cols = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12]
 chartData = pd.DataFrame({
@@ -82,7 +104,6 @@ model.fit(X, y)
 
 st.text("Future Predictions")
 st.line_chart(model.predict(X))
-
 # population vacinated
 st.text("Vacination Data")
 vData = vacData.loc[vacData.COUNTRY == con]
